@@ -4,22 +4,28 @@
   $picFileTypes = ["image/jpeg", "image/png"];
   $fullTimeNow = date("d.m.Y H:i:s"); 
   $hourNow = date("H:i");
-  $weekDaysET = ["esmaspäev", "teisipäev"];
+  $weekDaysET = array("Pühapäev", "Esmaspäev", "Teisipäev", "Kolmapäev", "Neljapäev", "Reede", "Laupäev");
+  $monthET = array("Jaanuar", "Veebruar", "Märts", "Aprill", "Mai", "Juuni", "Juuli", "August", "September", "Oktoober", "November", "Detsember");
   $minutesNow = date("i");
+  $laused = array('Täna on ilus päev', 'Tuleb vihma ja äikest', 'Peab koristama vist...');
+  $rand = array_rand($laused);
+  $semesterTeade = "";
+  $semesterTeade = "";
+  
  
   if($hourNow < 06 and $hourNow > 00 ){
-	  $partOfDay = "varajane hommik .";
+	  $partOfDay = "varajane hommik.";
   }
 	  elseif ($hourNow < 11.59 and $hourNow > 06) {
-		$partOfDay = "esimene pool päevast ";
+		$partOfDay = "esimene pool päevast. ";
 	  }
 	  
 	   elseif ($hourNow < 17.59 and $hourNow > 12.00) {
-		$partOfDay = "teine pool päevast";
+		$partOfDay = "teine pool päevast.";
 	  }
 	   
 	    elseif ($hourNow < 23.59 and $hourNow > 18) {
-		$partOfDay = "magama mineku aeg !";
+		$partOfDay = "magama mineku aeg!";
 	  }		  
 		  
 		  
@@ -60,6 +66,15 @@
 		  $semesterInfoHTML .= round($elapsedValue / $durationValue * 100, 1) ."%";
 		  $semesterInfoHTML .="</meter>";
 		  $semesterInfoHTML .="</p>";
+	   if ($today < $semesterStart) {
+		   
+		   $semesterTeade = " Semester pole veel alanud ";
+	   }
+		   
+		   elseif ($today > $semesterEnd) {
+			   $semesterTeade = " Semester saigi läbi ! ";
+		   }
+	
 	
 	  }	 
 	  // foto lisamine lehele
@@ -74,10 +89,7 @@
 			  
 		  }
 	  }
-	  
-	  
-	  
-	  
+	  	  
 	  //var_dump($allPhotos);
 	  $picCount = count($allPhotos);
 	  $picNum = mt_rand(0, ($picCount - 1));
@@ -86,28 +98,36 @@
 	  $randomImgHTML = '<img src="' .$photoFile .'" alt="TLU Terra õppehoone">';
 	  //lisame lehe päise
 	  require("header.php");
+	  $dayW = date("w");
 ?>
-
 
 <body background="bg.gif">
 <?php
   echo "<h1>" .$userName ." koolitöö leht</h1>"
+  
 ?>
 <p><b>Antud leht on loodud koolis õppetöö raames ja ei sisalda tõsiselt võetavat sisu !</b></p>
 <hr>
-<p>Lehe avamise hetkel on aeg : 
 <?php
-  echo $fullTimeNow;
+
+echo "<p>Lehe avamise hetkel on aeg :" .$fullTimeNow .".</p>";
 ?>
 </p>
 <?php
+  echo $weekDaysET[$dayW ] .date(" j. F");
   echo "<p>On " .$partOfHours .".</p>";
-  echo "<p>Käimas on " .$partOfDay .".</p>";
+  
   echo $semesterInfoHTML;
+  
+
+  
+ 
 ?>
 <hr>
 <?php
  echo $randomImgHTML;
+ echo "<p>Käimas on " .$partOfDay ."</p>";
+ echo $semesterTeade;
 ?>
 </body>
 </html>

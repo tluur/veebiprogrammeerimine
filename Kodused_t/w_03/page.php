@@ -1,6 +1,6 @@
 <?php
   $userName = "Taavi";
-  $photoDir = "../photos/";
+  $photoDir = "../w_03/photos/";
   $picFileTypes = ["image/jpeg", "image/png"];
   $fullTimeNow = date("d.m.Y H:i:s"); 
   $hourNow = date("H:i");
