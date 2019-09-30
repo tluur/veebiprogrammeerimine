@@ -2,11 +2,12 @@
 
 		function sql2Paring($filmTitle, $filmYear, $filmDuration){
 			$conn = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
-			$stmt = $conn->prepare("INSERT INTO film (pealkiri, aasta, kestus, zanr, tootja, lavastaja) VALUES(?,?,?,?,?,?)");
+			$que1 = $_GET["filmYear"];
+			$que = "SELECT pealkiri, kestus, aasta FROM film WHERE aasta > '.$que1'";
+			$stmt = $conn->prepare($que);
 			echo $conn->error;
 			//s -string, i -integer, d -decimal
-			$stmt->bind_param("siisss", $filmTitle, $filmYear, $filmDuration,
-			$filmGenre, $filmCompany, $filmDirector);
+			$stmt->bind_param("i", $que1);
 			$stmt->execute();
 		
 			$stmt->close();
@@ -30,7 +31,6 @@
 		$stmt->execute();
 		$filmSqlParing = null;
 		while($stmt->fetch()){
-		
 			if ($filmDuration > 60){
 			$kestus = $filmDuration / 60;
 			$jaak = $filmDuration%60;

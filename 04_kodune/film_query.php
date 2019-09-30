@@ -10,7 +10,7 @@
 	if(isset($_POST["saadaParing"])){
 		//salvestame kui vähemalt pealkiri on olemas
 		if(!empty($_POST["filmTitle"])){
-		$sqlParing($_POST["filmDuration"], $_POST["filmYear"]);
+		$sql2Paring($_POST["filmDuration"], $_POST["filmYear"]);
 		
 		}
 	}
@@ -28,7 +28,7 @@
 <p><b>Antud leht on loodud koolis õppetöö raames ja ei sisalda tõsiselt võetavat sisu !</b></p>
 <hr>
 <h2>Eesti filmid, päringud :</h2>
-<p>Täida lahter ja saa vastus : </p>
+
 <form method ="POST">
  <label>Väljalaske aasta alates : </label><input type ="number" min="1" max="2019" name="filmvaljalase">
  <br>
