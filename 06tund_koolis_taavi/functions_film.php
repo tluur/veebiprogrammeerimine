@@ -1,13 +1,13 @@
 <?php
 
-	function readAllFilms($filmTitle, $filmYear){
+	function readAllFilms(){
 		//loeme andmebaasist
 		//loome andmebaasi yhenduse (näiteks $conn)
 		$conn = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
 		//valmistame ette päringu
-		$stmt = $conn->prepare("SELECT pealkiri, aasta FROM film");
+		$stmt = $conn->prepare("SELECT pealkiri, aasta FROM film_v");
 		//seome saadava tulemuse muutujaga
-		$stmt->bind_result($filmTitle, $filmYear);
+		$stmt->bind_result($filmTitle, $filmYear);	
 		//käivitame sql päringu
 		$stmt->execute();
 		$filmifhoHTML = null;
