@@ -4,8 +4,6 @@
   require("functions_user.php");
   $database = "if19_taavi_lu_1";
   
-
-  
   //kui pole sisse logitud
   if(!isset($_SESSION["userID"])){
 	  //siis jõuga sisselogimise lehele
@@ -22,17 +20,15 @@
 	  
   }
   $userName = $_SESSION["userFirstname"] ." ".$_SESSION["userLastname"];
-  $varvid = $_SESSION["bgcolor"] ." " .$_SESSION["txtcolor"];
   
   
    require("header.php");
 	  
 ?>
 
-<body>
+<body background="bg.gif">
 <?php
-  echo "<h1>" .$userName ." koolitöö leht</h1>".$varvid;
- 
+  echo "<h1>" .$userName ." koolitöö leht</h1>"
   
 ?>
 <p><b>Antud leht on loodud koolis õppetöö raames ja ei sisalda tõsiselt võetavat sisu !</b></p>

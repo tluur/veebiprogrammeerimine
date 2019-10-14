@@ -132,16 +132,11 @@
 		}
 
 	  }
-	  
+	  require("header.php");
 	  $dayW = date("w");
 ?>
-<!DOCTYPE html>
-<html lang="et">
-  <head>
-    <meta charset="utf-8">
-	<title>T koolitöö leht</title>
-  </head>
-<body>
+
+<body background="bg.gif">
 <?php
   echo "<h1>" .$userName ." koolitöö leht</h1>"
 ?>
@@ -163,7 +158,7 @@ echo "<p>Lehe avamise hetkel on aeg :" .$fullTimeNow .".</p>";
 	  <input type="email" name="email" value="<?php echo $email; ?>">&nbsp;<span><?php echo $emailError; ?></span><br>
 	  <label>Salasõna:</label><br>
 	  <input name="password" type="password">&nbsp;<span><?php echo $passwordError; ?></span><br>
-	  <input name="login" type="submit" value="Logi sisse">&nbsp;<span><?php echo $notice ; ?>
+	  <input name="login" type="submit" value="Logi sisse">&nbsp;<span><?php echo $notice; ?>
 	</form>
 	<h>Loo kasutaja</h>
 	<p>Loo endale meie lehe <a href="newuser.php">kasutajakonto </a></p>

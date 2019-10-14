@@ -4,7 +4,6 @@ require("functions_main.php");
 require("functions_user.php");
 $database = "if19_taavi_lu_1";
 $userName = $_SESSION["userFirstname"] ." ".$_SESSION["userLastname"];
-$varvid = $_SESSION["bgcolor"] ." " .$_SESSION["txtcolor"];
 $mydescription = "";
 $mybgcolor = null;
 $mytxtcolor = null;
@@ -36,34 +35,6 @@ function userProIn($userID, $mydescription, $mybgcolor, $mytxtcolor){
 	$stmt->close();
 	$conn->close();
 }
-
-function userPrdOut($userID){
-	
-	$notice= "";
-	$conn = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
-	$stmt = $conn->prepare("SELECT bgcolor, txtcolor FROM vpuserprofiles WHERE userID =?");
-	echo $conn->error;
-	$stmt->bind_param("i", $userID);
-	$stmt->bind_result($mybgcolorFromDb, $mytxtcolorFromDb);
-    if ($stmt->execute()) {
-        //kui päring õnnestus
-        $notice = "Laadimine õnnestus!";
-		$_SESSION["bgcolor"] = $mybgcolorFromDb;
-		$_SESSION["txtcolor"] = $mytxtcolorFromDb;
-
-        $stmt->close();
-        $mysqli->close();
-
-        return;
-    } else {
-        $notice = "Laadimisel tekkis viga!" . $stmt->error;
-    }
-
-    $stmt->close();
-    $mysqli->close();
-    return $notice;
-}	
-
 	
 	
 	//var_dump($_POST);
@@ -88,21 +59,19 @@ if(!isset($_SESSION["userID"])){
 if(isset($_GET["logout"])){
 	session_destroy();
 	header("Location: page.php");
-	exit(); 
+	exit();
 }
   
   
   
 require("header.php");
-
+	  
 ?>
 
-<body>
+<body background="bg.gif">
 <?php
-	echo "<h1>" .$userName ." koolitöö leht</h1>" .$varvid 
-	//echo "Kasutaja värvid on: " .$varvid 
-	
-	
+	echo "<h1>" .$userName ." koolitöö leht</h1>"
+  
 ?>
 <p><b>Antud leht on loodud koolis õppetöö raames ja ei sisalda tõsiselt võetavat sisu !</b></p>
 <hr>
@@ -116,7 +85,7 @@ require("header.php");
 	</form>
 
  <p><a href="?logout=1">Logi Välja</a> |
- <a href="home.php">Home</a></p>
+ <a href="userprofile.php">Kasutaja profiil</a></p>
  
 <hr>
 
