@@ -71,10 +71,30 @@ if(isset($_POST["submitProfile"])){
 	$mydescription = $_POST["description"];
 	$mybgcolor = $_POST["bgcolor"];
 	$mytxtcolor = $_POST["txtcolor"];
-	$notice = userProIn($_SESSION["userID"], $mydescription, $mybgcolor, $mytxtcolor);		
+	//$notice = userProIn($_SESSION["userID"], $mydescription, $mybgcolor, $mytxtcolor);
+	$notice = storeUserProfile($_POST["description"], $_POST["bgcolor"], $_POST["txtcolor"]);	
+	$_SESSION["bgcolor"] = $mybgcolorFromDb;
+	$_SESSION["txtcolor"] = $mytxtcolorFromDb;
+	$myProfileDesc = showMyDesc();
+	
 }
 	
-	
+  $notice = null;
+  $myDescription = null;
+  
+  if(isset($_POST["submitProfile"])){
+	$notice = storeUserProfile($_POST["description"], $_POST["bgcolor"], $_POST["txtcolor"]);
+	if(!empty($_POST["description"])){
+	  $myDescription = $_POST["description"];
+	}
+	$_SESSION["bgColor"] = $_POST["bgcolor"];
+	$_SESSION["txtColor"] = $_POST["txtcolor"];
+  } else {
+	$myProfileDesc = showMyDesc();
+	if($myProfileDesc != ""){
+	  $myDescription = $myProfileDesc;
+    }
+  }	
  
   
   //kui pole sisse logitud
@@ -117,6 +137,7 @@ require("header.php");
 
  <p><a href="?logout=1">Logi Välja</a> |
  <a href="home.php">Home</a></p>
+ <a href="messages.php">Sõnumid</a></p>
  
 <hr>
 
