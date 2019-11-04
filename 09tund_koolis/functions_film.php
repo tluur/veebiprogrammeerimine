@@ -1,0 +1,44 @@
+<?php
+
+	function readAllFilms(){
+		//loeme andmebaasist
+		//loome andmebaasi yhenduse (näiteks $conn)
+		$conn = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
+		//valmistame ette päringu
+		$stmt = $conn->prepare("SELECT pealkiri, aasta FROM film_v");
+		//seome saadava tulemuse muutujaga
+		$stmt->bind_result($filmTitle, $filmYear);	
+		//käivitame sql päringu
+		$stmt->execute();
+		$filmifhoHTML = null;
+		while($stmt->fetch()){
+			$filmifhoHTML .="<h3>" .$filmTitle ."</h3>";
+			$filmifhoHTML .="<p>Tootmisaasta: " .$filmYear .".</p>";
+			
+			//echo $filmTitle; 
+		}
+		
+		
+		
+		//sulgeme yhenduse
+		$stmt->close();
+		$conn->close();
+		//väljastan väärtuse
+		return $filmifhoHTML;
+	
+	}
+		
+	function saveFilmInfo($filmTitle, $filmYear, $filmDuration,
+		$filmGenre, $filmCompany, $filmDirector){
+			$conn = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
+			$stmt = $conn->prepare("INSERT INTO film_v (pealkiri, aasta, kestus, zanr, tootja, lavastaja) VALUES(?,?,?,?,?,?)");
+			echo $conn->error;
+			//s -string, i -integer, d -decimal
+			$stmt->bind_param("siisss", $filmTitle, $filmYear, $filmDuration,
+			$filmGenre, $filmCompany, $filmDirector);
+			$stmt->execute();
+		
+			$stmt->close();
+			$conn->close();
+	}
+?>
