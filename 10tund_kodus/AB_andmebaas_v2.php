@@ -55,12 +55,9 @@ $database = "if19_taavi_lu_1";
 
   $userName = $_SESSION["userFirstname"] ." " .$_SESSION["userLastname"];
 
-   
+  
 
   $notice = null;
-  $notice_roll = null;
-  $notice_osaleja = null;
-  $notice_ufID = null;
   $messagesHTML = null;
   $messagesHTML = readAll_AB();
   //$messagesHTML = readMyMessages();
@@ -74,31 +71,10 @@ $database = "if19_taavi_lu_1";
 		}
 	}
 	
-	if(isset($_POST["submitFilm_roll"])){
-		if(!empty($_POST["amet"])){
-		$notice_roll = saveFilmAmet($_POST["amet"]);
-		}
-		
-	}
-	
-	if(isset($_POST["submitFilm_osal"])){
-		if(!empty($_POST["firstName"])){
-			$notice_osaleja = saveFilmOsaleja($_POST["firstName"], $_POST["surName"], $_POST["birthDate"]);
-		}
-		
-	}
-	
-	if(isset($_POST["submitFilm_AB"])){
-		if(!empty($_POST["firstName"])){
-			$notice_ufID = userId_FilmId();
-		}
-		
-	} 
-	
 
   
 
- require("header.php");
+  require("header.php");
 
 ?>
 
@@ -131,27 +107,65 @@ $database = "if19_taavi_lu_1";
 </form>
 
 <hr>
-
-<p><h2>Filmides osalejate andmed!</h2></p>  
-<form method ="POST">
-	  <label>Eesnimi:</label><br><input name ="firstName" type="text" ><br>
-      <label>Perekonnanimi:</label><br><input name="surName" type="text" ><br><p>
-	  <label>Sünnikuupäev :</label><input type="date" name="birthDate">
+  <p><h2>Filmides osalejate andmed!</h2></p>
+  
+ <form method ="POST">
+	  <label>Eesnimi:</label><br>
+	  <input name ="firstName" type="text" ><br>
+      <label>Perekonnanimi:</label><br>
+	  <input name="surName" type="text" ><br><p>
+	  <label>Sünnikuupäev :</label>
+	  <?php
+		//Sünnikuupäev
+		echo '<select name="birthDay">' ."\n";
+		echo "\t \t" .'<option value="" selected disabeld>päev</option>' ."\n";
+		for($i = 1; $i < 32; $i ++){
+			echo "\t \t" .'<option value="' .$i .'"';
+			if($i == $birthDay){
+				echo " selected";
+			}
+			echo ">" .$i ."</option> \n";
+		}
+		echo "\t </select> \n";
+		?>
+		
+		<label>Sünnikuu: </label>
+	  <?php
+	    echo '<select name="birthMonth">' ."\n";
+		echo '<option value="" selected disabled>kuu</option>' ."\n";
+		for ($i = 1; $i < 13; $i ++){
+			echo '<option value="' .$i .'"';
+			if ($i == $birthMonth){
+				echo " selected ";
+			}
+			echo ">" .$monthNamesET[$i - 1] ."</option> \n";
+		}
+		echo "</select> \n";
+	  ?>
 	  
-	  <br>
-      <input type="submit" value="Salvesta filmi info" name="submitFilm_osal">
-</form>
-
-<hr>
-
-
-  <p><h2>Rolli filmis!</h2></p>
-  <form method ="POST">
-  <label>Amet Filmis : </label><br><input type ="text" name="amet">
+	  <label>Sünniaasta: </label>
+	  <?php
+	    echo '<select name="birthYear">' ."\n";
+		echo '<option value="" selected disabled>aasta</option>' ."\n";
+		for ($i = date("Y") - 15; $i >= date("Y") - 110; $i --){
+			echo '<option value="' .$i .'"';
+			if ($i == $birthYear){
+				echo " selected ";
+			}
+			echo ">" .$i ."</option> \n";
+		}
+		echo "</select> \n";
+	  ?>
+	  <br><p>
+	  <label>Amet Filmis : </label><br>
+	  <input type ="text" name="amet">
+  
+	  
+	  
+	  
   <br>
-  <input type="submit" value="Salvesta roll filmis" name="submitFilm_roll">
+  <input type="submit" value="Salvesta filmi info" name="submitFilm_osal">
 </form>
-	  
  
 <hr>
   <p><h2>Filmibaasi kuvatav sisu!</h2></p>
@@ -161,12 +175,9 @@ $database = "if19_taavi_lu_1";
  ?>
  
  
- <p><a href="?logout=1">Logi VÃ¤lja</a> |
+ <p>Tagasi <a href="home.php">avalehele</a></p>
+ <p><a href="?logout=1">Logi Välja</a> |
  <a href="userprofile.php">Kasutaja profiil</a></p>
- <a href="messages.php">SÃµnumid</a> |
- <a href="changepass.php">Parooli vahetus</a> |
- <a href="AB_andmebaas.php">AB andmebaas</a></p>
- <a href="picupload.php">Pildid Ã¼les</a> |
  <a href="home.php">Home</a></p>
  <hr>
 
