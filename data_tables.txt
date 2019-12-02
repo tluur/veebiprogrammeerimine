@@ -14,3 +14,7 @@ CREATE TABLE `if19_taavi_lu_1`.`vpphotos3` ( `id` INT(11) NOT NULL AUTO_INCREMEN
 
 Kasutajaprofiilipildid
 CREATE TABLE `if19_taavi_lu_1`.`vpuserpictures3` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `userid` INT(11) NOT NULL , `filename` VARCHAR(50) NOT NULL , `created` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP , `deleted` DATE NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+News database
+
+CREATE TABLE `if19_taavi_lu_1`.`news_database` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `userid` INT(7) NOT NULL , `title` VARCHAR(140) NOT NULL , `content` VARCHAR(2000) NOT NULL , `expire` DATE NOT NULL, `added` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, `deleted` TIMESTAMP NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
